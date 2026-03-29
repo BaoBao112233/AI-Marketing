@@ -48,6 +48,52 @@ API_KEY = "your_pixazo_api_key_here"
 
 ---
 
+## Sơ đồ luồng hoạt động
+
+```mermaid
+flowchart TD
+    A(["`**Bắt đầu**`"]) --> B["Cấu hình API Key\n& Headers"]
+    B --> C["Chuẩn bị Prompt\ntiếng Việt\n*(tai nghe không dây)*"]
+    C --> D["POST /v1/video/generate\ngw.pixazo.ai"]
+
+    D --> E{"`HTTP 200?`"}
+    E -->|Lỗi| F["In lỗi &\nDừng"]
+    F --> Z(["`**Kết thúc**`"])
+
+    E -->|Thành công| G["Lấy job_id\ntừ response"]
+
+    G --> H{"`video_url\ncó ngay?`"}
+    H -->|Có| L
+
+    H -->|Không - cần poll| I["⏳ Chờ 30 giây"]
+    I --> J["POST /v1/video/result\nbody: video_id"]
+    J --> K{"`status =\ncompleted?`"}
+    K -->|Không| M{"`Quá 90 phút?`"}
+    M -->|Chưa| I
+    M -->|Hết giờ| N["⚠️ Timeout\n→ chạy check_status.py"]
+    N --> Z
+
+    K -->|Có - có video_url| L["Lưu URL vào\nvideo/video_urls.txt"]
+    L --> O["GET video_url\ndownload stream"]
+    O --> P["Lưu file .mp4\nvào video/"]
+    P --> Q["In thông báo\n✅ hoàn thành"]
+    Q --> Z
+
+    classDef process fill:#4A90D9,stroke:#2c5f8a,color:#fff,rx:6
+    classDef decision fill:#F5A623,stroke:#b8781a,color:#fff
+    classDef terminal fill:#27AE60,stroke:#1a7a42,color:#fff,rx:20
+    classDef error fill:#E74C3C,stroke:#a93226,color:#fff,rx:6
+    classDef warn fill:#E67E22,stroke:#a85d13,color:#fff,rx:6
+
+    class B,C,D,G,I,J,L,O,P,Q process
+    class E,H,K,M decision
+    class A,Z terminal
+    class F error
+    class N warn
+```
+
+---
+
 ## Cách chạy
 
 ```bash
