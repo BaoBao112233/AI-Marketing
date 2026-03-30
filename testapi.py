@@ -5,7 +5,7 @@ import time
 from pathlib import Path
 
 # ── Cấu hình ──────────────────────────────────────────────────────────────────
-API_KEY = "063860b06a9e463a922f0ceb92bf88ab"
+API_KEY = "Your_API_Key_Here"
 GENERATE_URL = "https://gateway.pixazo.ai/sora-video/v1/video/generate"
 RESULT_URL   = "https://gateway.pixazo.ai/sora-video/v1/video/result"   # POST {video_id: ...}
 
@@ -16,19 +16,65 @@ HEADERS = {
 }
 
 # ── Prompt marketing tai nghe không dây (tiếng Việt + người đóng) ─────────────
-PROMPT = (
-    "Một video marketing chuyên nghiệp về tai nghe không dây cao cấp. "
-    "Cảnh quay studio sáng đẹp, một người phụ nữ trẻ Việt Nam tự tin đeo tai nghe, "
-    "mỉm cười, nói chuyện điện thoại và thưởng thức âm nhạc. "
-    "Camera zoom vào chi tiết tai nghe: thiết kế sang trọng, đệm tai mềm mại, logo nổi bật. "
-    "Chữ tiếng Việt xuất hiện: 'Âm thanh đỉnh cao – Kết nối không giới hạn'. "
-    "Màu sắc hiện đại, nhạc nền sôi động, phong cách quảng cáo thương mại."
-)
+PROMPT = """
+Create a short vertical viral video (30–45 seconds) optimized for Facebook Reels/TikTok.
+
+Concept:
+A highly engaging, real-life style video with a strong emotional or surprising hook, designed to keep viewers watching until the end.
+
+Structure:
+
+1. Hook (0–3s):
+Start with an attention-grabbing moment that creates curiosity or tension.
+Use close-up framing and a dynamic camera movement.
+
+2. Build-up (3–15s):
+Show the situation developing.
+Introduce the character and context quickly.
+Use fast cuts and subtle zoom-ins to maintain engagement.
+
+3. Main moment (15–30s):
+Deliver the key action, emotional peak, or unexpected twist.
+Make it visually clear and impactful.
+
+4. Ending (30–45s):
+Provide a satisfying payoff or a twist ending.
+Optionally create a loop so the ending connects naturally back to the beginning.
+
+Visual Style:
+- Vertical 9:16 format
+- Realistic, natural lighting
+- Handheld camera feel for authenticity
+- Close-ups for emotional emphasis
+- Slight motion blur for dynamic movement
+
+Editing Style:
+- Fast-paced cuts every 1–3 seconds
+- Zoom-in transitions and jump cuts
+- Add subtle camera shake for realism
+
+Audio:
+- Background music: trending, emotional or suspenseful
+- Add sound effects (whoosh, impact, ambient sounds)
+- Optional voice-over or natural dialogue
+
+Text Overlay:
+- Bold captions synced with speech
+- Highlight key phrases for engagement
+- Use large, readable fonts
+
+Tone:
+- Relatable, emotional, or surprising
+- Designed to maximize retention and shares
+
+Goal:
+Create a scroll-stopping, high-retention viral video that feels authentic and engaging.
+"""
 
 DATA = {
     "prompt": PROMPT,
     "size": "1280x720",
-    "seconds": 8,
+    "seconds": 12,
 }
 
 # ── Thư mục lưu trữ ───────────────────────────────────────────────────────────
